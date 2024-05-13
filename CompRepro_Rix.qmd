@@ -1,0 +1,193 @@
+---
+title: "Reproducible research<br />with Nix and rix"
+subtitle: "Short intro to the workshop"
+title-slide-attributes:
+  data-background-image: www/title-bg.jpg
+  data-background-size: cover
+  #data-background-opacity: "0.3"
+author: "<br /><br />**Bruno Rodrigues**<br />*Intro: Jürgen Schneider*"
+date: "20. Mar 2024" # today
+date-format: "DD MMMM YYYY"
+format: 
+  revealjs:
+      theme: [white] # sky default
+      logo: www/dipf-logo.png
+      footer: "Slides: [bit.ly/shared-slides](https://bit.ly/shared-slides)"
+      smaller: true
+      scrollable: true
+      transition: fade
+      width: 1500
+      height: 850
+      hide-inactive-cursor: false
+      embed-resources: true
+editor: source
+editor_options: 
+  chunk_output_type: console
+bibliography: www/references.bib
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
+css: style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE, 
+                      warning=FALSE)
+### DOWNLOAD NEWEST SOURCES
+## befindet sich im DIPF Ordner
+# download.file("https://drive.google.com/uc?export=download&id=1ASV99YHMHSNChSNzqbZwvz2SiqYvmqO_",
+#               "www/references.bib", overwrite = T)
+
+
+library(fontawesome)
+```
+
+
+
+
+## Aktuelle Herausforderungen
+
+::: columns
+::: {.column width="45%"}
+![](www/process_5.jpg){width="100%"}
+:::
+
+::: {.column width="54%"}
+::: {.box-grey style="width: max-content"}
+`r fa("question-circle")` **Wann bereitstellen, wann archivieren?**
+:::
+
+\
+
+**Kosten:**
+
+-   Ressourcen für Aufbereitung
+-   Erschwert/Verunmöglicht Primärforschung?
+
+**Nutzen:**
+
+-   Analysepotential
+    -   Umfang Datenmaterial
+    -   Repräsentativ oder spezifisch ("seltene Daten")
+-   Zusätzliche Daten (z.B. Leistungsdaten, Interviews)
+
+:::
+:::
+
+::: notes
+- allerdings: **Entscheidungen** bei Bereitstellung *nicht immer* so **eindeutig**
+- etwas **zurückgesprungen** zur Frage: **Lohnt** sich eine Bereitstellung meiner UVs? 
+- Also: **Wann** stelle ich UVs **bereit** und wann archiviere, also **sichere** ich sie der **GwP** folgend?<br /><br />
+- **Einzelfallentscheidung**: Abwägung zwischen Kosten und Nutzen
+- keine generellen Kriterien "ab 60 UV loht sich"
+- können aber **Dimensionen aufmachen** entlang derer sich **orientieren**<br /><br />
+- **Kostenseite**: Frage inwiefern Videos **bereits aufbereitet**<br />-> *Transkript*, *Metadaten*, Feldbericht, Methodenbericht<br /> welche **Ressourcen** noch *vorhanden*?
+- **Erschwert** Primärforschung: bei *Schulleitung* oder *Gefilmten*: **gewisse Reaktanz** ggü. der Bereitstellung<br />-> **Häufiges Argument**: "Wir befürchten *geringere Teilnahmequoten*" -> kaum systematische Evidenz<br /><br />
+- **Nutzen**: Aufnahmen sehr **umfangreich** (z.B. *Kamerawinkel*, eine *breite Stichprobe*)<br />-> dann steigt Analysepotential
+- zusätzliche **Datenquellen**, ermöglichen **Verknüpfungen** & **reichhaltige** Auswertungen
+
+:::
+
+
+
+## Housekeeping
+
+**Please check:**
+
+`r fa("square-check", fill="#7AAD7B")` rix installed
+\
+
+`r fa("square-check", fill="#7AAD7B")` Nix installed (if not, we'll do an alternative using github actions)
+\
+\
+\
+
+**Alternative to installation of Nix**  
+`r fa("square-check", fill="#7AAD7B")`  Do you have git installed?
+\
+
+`r fa("square-check", fill="#7AAD7B")`  Do you have a github account?
+
+## The DIPF Open Science Code
+
+* event series "Open Science - Opportunities for Educational Research"
+* DIPF working group "Open Research and Practice" is organising
+* See further events on https://www.leibniz-openscience.de/event-calendar/
+
+![](www/Flyer_Veranstaltungsreihe.jpg)
+
+* the code
+* pyramid "make it easy" (how this workshop fits into the greater idea of ...)
+
+
+## The challenge
+
+- You want to redo parts of the analyses: Because a reviewer is interested in ..., because you want to report certain group comparisons on a conference. But when you re-run your code, you get error messages
+- A reviewer asks you to share your data so that s/he can check your analyses
+- 
+
+
+## The challenge
+
+Compuational Reproducibility: "In principle, all reported evidence should be reproducible. If someone applies the same analysis to the same data, the same result should occur." [@Nosek.etal.2022, p. 721]
+
+[@Cruwell.etal.2023]
+
+Investigated all articles from one issue in Psychological Science: 1 exactly reproducible, 3 essentially reproducible after minor deviations
+
+`r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")`
+`r fa("file-lines", fill="#EBD480")``r fa("file-lines", fill="#EBD480")``r fa("file-lines", fill="#EBD480")`
+`r fa("file-lines", fill="#7AAD7B")`
+
+"Code-specific issues include (a) a lack of shared analysis code or modeling code and (b) issues with package or software versions (often resolvable but sometimes only with considerable effort)."  
+  
+[@Hardwicke.etal.2021]
+Investigated all articles with open data badges from Psychological Science in 2014-2015:
+
+ all target values in 9 out of the 25 articles (36%, CI [19,57]) were reproducible, with the remaining 16 articles (64%, CI [43,81]) containing at least one major numerical discrepancy. After requesting input from original authors, several issues were resolved through the provision of additional information and ultimately all target values in 15 (60%, CI [39,78]) articles were reproducible, with the remaining 10 (40%, CI [22,61]) articles containing at least one major numerical discrepancy. (p. 4)  
+   
+
+[@Obels.etal.2020] analyzed 62 registered reports. 36 shared both, code and data.  
+computationally reproduced (21 out of 36, or 58%) 
+
+
+## The challenge
+
+- Artner slides
+
+
+## Reasons
+
+- copy paste errors
+- ... (see slides Metascience)
+- Package conflicts
+- Non-standardized computational environment
+
+
+## Input-Output-Documents
+## renv
+## Containers: Holepunch
+https://doi.org/10.1177/2378023119849803
+https://doi.org/10.15626/MP.2018.892
+
+## Recording
+
+
+# Vielen Dank
+
+![](www/dipf-logo.png){width="20%"}\
+\
+
+**Jürgen Schneider**\
+[ju.schneider\@dipf.de](mailto:ju.schneider@dipf.de){.email}
+
+## References
+
+::: {#refs}
+:::
+
+## Credit
+
+Title page <a href="https://unsplash.com/de/@thomasw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Thomas William</a> on <a href="https://unsplash.com/de/fotos/person-die-eine-videokamera-halt-4qGbMEZb56c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>  
+  
+Icons by Font Awesome CC BY 4.0
+
