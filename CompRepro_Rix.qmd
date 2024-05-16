@@ -114,7 +114,7 @@ see [leibniz-openscience.de/event-calendar](https://www.leibniz-openscience.de/e
 ::: notes
 - Welcome to the first event in the series on ...  
 - by the DIPF | Leibniz institute for research and information in education
-- Which is organized by ...
+- With the event series being organized by ...
 - There are 7 events in total
 - If you are interested in participating in any other of the events try to grab a free spot via ...
 :::
@@ -189,7 +189,7 @@ and require our staff to adhere to particular standards
 - For a **conference**, you want to run new analyses on subgroups of your sample\
 - A reviewer of your journal article 
   - suggests **further (exploratory) analyses** 
-  - asks you to share your data and code, so that s/he can **check your analyses**
+  - asks you to share your data and code, so that they can **check your analyses**
 - For a **meta-analysis**, other researchers want to calculate the pre-post-correlation of your test
 :::
 ::::
@@ -438,8 +438,8 @@ ggplot(artner, aes(x=what, y=count)) +
 * so one option is to use renv with your projects
 * it ensures that everyone involved uses the same package versions
 * by establishing a project specific library, which is saved in the renv folder
-* so when you use renv by running rnv::init(), installing the packages and documenting the packages
-* soemone else can create that same package environment with renv::restore
+* so when you use renv by running renv::init(), installing the packages and documenting the packages
+* soemone else can create that same package environment with renv::restore()
 :::
 
 
