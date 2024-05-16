@@ -12,7 +12,7 @@ format:
   revealjs:
       theme: [white] # sky default
       logo: www/dipf-logo.png
-      footer: "Slides: [bit.ly/shared-slides](https://bit.ly/shared-slides)"
+      footer: "Slides: [t1p.de/rj7gm](https://t1p.de/rj7gm)"
       smaller: true
       scrollable: true
       transition: fade
