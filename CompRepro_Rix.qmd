@@ -113,6 +113,7 @@ see [leibniz-openscience.de/event-calendar](https://www.leibniz-openscience.de/e
 
 ::: notes
 - Welcome to the first event in the series on ...  
+- by the DIPF | Leibniz institute for research and information in education
 - Which is organized by ...
 - There are 7 events in total
 - If you are interested in participating in any other of the events try to grab a free spot via ...
@@ -167,7 +168,8 @@ and require our staff to adhere to particular standards
 [@Nosek.2019a]
 
 ::: notes
-We have also assessed the **needs** of our staff concerning the policy and this series of events is intended to meet those needs.
+- We have also assessed the **needs** of our staff concerning the policy 
+- and this series of events is intended to meet those needs.
 :::
 
 
@@ -193,7 +195,8 @@ We have also assessed the **needs** of our staff concerning the policy and this 
 ::::
 
 ::: notes
-... in all of these cases you or other people are re-running at least parts of your code
+- so for today's topic we are looking at reproducibility of research
+- ... in all of these cases you or other people are re-running at least parts of your code
 :::
 
 ## Reproducibility: The challenge
@@ -210,7 +213,7 @@ We have also assessed the **needs** of our staff concerning the policy and this 
 - For a **conference**, you want to run new analyses on subgroups of your sample\
 - A reviewer of your journal article 
   - suggests **further (exploratory) analyses** 
-  - asks you to share your data and code, so that s/he can **check your analyses**
+  - asks you to share your data and code, so that they can **check your analyses**
 - For a **meta-analysis**, other researchers want to calculate the pre-post-correlation of your test
 
 <span class="highlight">But when you/others re-run your code, R throughs error messages.</span>
@@ -352,7 +355,7 @@ ggplot(artner, aes(x=what, y=count)) +
 ::: {.notes}
 * We've just seen that that is not necessarily the case
 * When Artner and colleagues tried to reproduce 232 statistical claims
-* and aimed to improve the share of reproducible results from the initial 52%
+* and aimed to improve the share of reproducible results from the initial 51%
 :::
 
 
@@ -393,7 +396,7 @@ ggplot(artner, aes(x=what, y=count)) +
 * There are many reasons why results are not reproducible
 * I would just like to direct your attention to the latter two, with which we are particularly concerned today
 * And that is having the right package versions and working in the right environment
-* Sometimes - not all the time - if your code was written with older package versions or with an older R version, it will through you error messages if you'd try to run it now
+* Sometimes - not all the time - if your code was written with older package versions or with an older R version, it will throw you error messages if you'd try to run it now
 :::
 
 
@@ -583,9 +586,48 @@ table1 %>%
 
 ::: notes
 * my hope is that with Nix we will get both and therefore make it easier to create reproducible projects
-* and to make it easier for R to use Nix, Bruno comes into play.
-* He has created an R package to help us with this.
+* and to make it easier for us to use Nix in R, Bruno comes into play.
+* He has created the R package {rix} to help us with this.
 :::
+
+
+## Nix
+\
+\
+\
+
+
+:::: columns
+::: {.column width="25%"}
+![](www/bruno_materials.jpg){width=100%}
+:::
+
+::: {.column width="74%"}
+**Bruno's**  
+
+`r fa("book", fill="#365c8d", width="30px")` [books](https://www.brodrigues.co/about/books/) (such as "Building reproducible analytical pipelines with R")  
+\
+
+`r fa("blog", fill="#365c8d", width="30px")` [blog](https://www.brodrigues.co/) (also including a series of posts on `rix`)  
+\
+
+`r fa("youtube", fill="#365c8d", width="30px")` [youtube channel](https://www.youtube.com/user/cbrunos)  
+\
+
+`r fa("mastodon", fill="#365c8d", width="30px")` [mastodon](https://fosstodon.org/@brodriguesco) &nbsp;&nbsp;`r fa("square-x-twitter", fill="#365c8d", width="30px")` [X (twitter)](https://twitter.com/brodriguesco)  (R stuff and high quality memes)
+:::
+::::
+
+ 
+
+::: notes
+- I am **exited** to have Bruno because in my opinion he is one of the people whose products make our lives **easier** and thus makes a **significant contribution** to the success of good research.
+- He invests **time and effort** to produce books, blog posts and videos to bring them closer to us.
+- And he could charge **a lot of money** for these and similar products. But no, he puts them out there **for free**.
+- This further contributes to **knowledge equity** and is very much in the spirit of open science
+- thank you for joining us Bruno, when you are ready go ahead and share your screen
+:::
+
 
 
 ## Recording
