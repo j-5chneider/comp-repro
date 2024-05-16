@@ -1,12 +1,12 @@
 ---
 title: "Reproducible research<br />with Nix and rix"
-subtitle: "Short intro to the workshop"
+subtitle: "Short intro to the topic"
 title-slide-attributes:
   data-background-image: www/title-bg.jpg
   data-background-size: cover
   #data-background-opacity: "0.3"
 author: "<br /><br />**Bruno Rodrigues**<br />*Intro: Jürgen Schneider*"
-date: "20. Mar 2024" # today
+date: "16. May 2024" # today
 date-format: "DD MMMM YYYY"
 format: 
   revealjs:
@@ -24,8 +24,8 @@ editor: source
 editor_options: 
   chunk_output_type: console
 bibliography: www/references.bib
-csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
-css: style.css
+csl: www/apa7.csl
+css: www/style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -39,53 +39,11 @@ knitr::opts_chunk$set(echo = FALSE,
 
 
 library(fontawesome)
+library(ggplot2)
+library(kableExtra)
+library(htmltools)
 ```
 
-
-
-
-## Aktuelle Herausforderungen
-
-::: columns
-::: {.column width="45%"}
-![](www/process_5.jpg){width="100%"}
-:::
-
-::: {.column width="54%"}
-::: {.box-grey style="width: max-content"}
-`r fa("question-circle")` **Wann bereitstellen, wann archivieren?**
-:::
-
-\
-
-**Kosten:**
-
--   Ressourcen für Aufbereitung
--   Erschwert/Verunmöglicht Primärforschung?
-
-**Nutzen:**
-
--   Analysepotential
-    -   Umfang Datenmaterial
-    -   Repräsentativ oder spezifisch ("seltene Daten")
--   Zusätzliche Daten (z.B. Leistungsdaten, Interviews)
-
-:::
-:::
-
-::: notes
-- allerdings: **Entscheidungen** bei Bereitstellung *nicht immer* so **eindeutig**
-- etwas **zurückgesprungen** zur Frage: **Lohnt** sich eine Bereitstellung meiner UVs? 
-- Also: **Wann** stelle ich UVs **bereit** und wann archiviere, also **sichere** ich sie der **GwP** folgend?<br /><br />
-- **Einzelfallentscheidung**: Abwägung zwischen Kosten und Nutzen
-- keine generellen Kriterien "ab 60 UV loht sich"
-- können aber **Dimensionen aufmachen** entlang derer sich **orientieren**<br /><br />
-- **Kostenseite**: Frage inwiefern Videos **bereits aufbereitet**<br />-> *Transkript*, *Metadaten*, Feldbericht, Methodenbericht<br /> welche **Ressourcen** noch *vorhanden*?
-- **Erschwert** Primärforschung: bei *Schulleitung* oder *Gefilmten*: **gewisse Reaktanz** ggü. der Bereitstellung<br />-> **Häufiges Argument**: "Wir befürchten *geringere Teilnahmequoten*" -> kaum systematische Evidenz<br /><br />
-- **Nutzen**: Aufnahmen sehr **umfangreich** (z.B. *Kamerawinkel*, eine *breite Stichprobe*)<br />-> dann steigt Analysepotential
-- zusätzliche **Datenquellen**, ermöglichen **Verknüpfungen** & **reichhaltige** Auswertungen
-
-:::
 
 
 
@@ -93,86 +51,548 @@ library(fontawesome)
 
 **Please check:**
 
-`r fa("square-check", fill="#7AAD7B")` rix installed
+`r fa("square-check", fill="#009e73", width="30px")` rix installed
 \
 
-`r fa("square-check", fill="#7AAD7B")` Nix installed (if not, we'll do an alternative using github actions)
+`r fa("square-check", fill="#009e73", width="30px")` Nix installed (if not, we'll do an alternative using github actions)
 \
 \
 \
 
 **Alternative to installation of Nix**  
-`r fa("square-check", fill="#7AAD7B")`  Do you have git installed?
+`r fa("square-check", fill="#009e73", width="30px")`  Do you have git installed?
 \
 
-`r fa("square-check", fill="#7AAD7B")`  Do you have a github account?
+`r fa("square-check", fill="#009e73", width="30px")`  Do you have a github account?
+\
+\
+\
 
-## The DIPF Open Science Code
+**Workshop will be recorded**  
+`r fa("file-video", fill="#009e73", width="30px")` Only the presenter and the shared screen is recorded
+\
 
-* event series "Open Science - Opportunities for Educational Research"
-* DIPF working group "Open Research and Practice" is organising
-* See further events on https://www.leibniz-openscience.de/event-calendar/
-
-![](www/Flyer_Veranstaltungsreihe.jpg)
-
-* the code
-* pyramid "make it easy" (how this workshop fits into the greater idea of ...)
+`r fa("video-slash", fill="#009e73", width="30px")` If you want to be absolutely sure, switch off your camera and rename yourself if necessary
 
 
-## The challenge
+::: notes
+- As announced in the e-mail, we are **recording** the workshop. 
+- This way you can **watch** parts of it again and **share** it with colleagues. 
+- As soon as the recording is **online**, you will receive an **email** with the link to the recording and the materials.
+:::
 
-- You want to redo parts of the analyses: Because a reviewer is interested in ..., because you want to report certain group comparisons on a conference. But when you re-run your code, you get error messages
-- A reviewer asks you to share your data so that s/he can check your analyses
-- 
+## The DIPF Open Science Codex
+
+::: columns
+::: {.column width="35%"}
+![](www/Flyer_Veranstaltungsreihe.jpg){width=100% .img-border}
+:::
+
+::: {.column width="64%"}
+\
+\
+\
+\
+
+**Event series**  
+"Open Science - Opportunities for Educational Research"
+\
+\
+\
+
+**Organized**  
+by the DIPF working group "Open Research and Practice"
+\
+\
+\
+
+**Further events**  
+see [leibniz-openscience.de/event-calendar](https://www.leibniz-openscience.de/event-calendar/)
+:::
+:::
+
+::: notes
+- Welcome to the first event in the series on ...  
+- Which is organized by ...
+- There are 7 events in total
+- If you are interested in participating in any other of the events try to grab a free spot via ...
+:::
 
 
-## The challenge
 
-Compuational Reproducibility: "In principle, all reported evidence should be reproducible. If someone applies the same analysis to the same data, the same result should occur." [@Nosek.etal.2022, p. 721]
+## The DIPF Open Science Codex
 
-[@Cruwell.etal.2023]
+::: columns
+::: {.column width="35%"}
+![](www/os-codex.jpg){width=100% .img-border}
+:::
 
-Investigated all articles from one issue in Psychological Science: 1 exactly reproducible, 3 essentially reproducible after minor deviations
+::: {.column width="64%"}
+\
+\
+\
+\
 
-`r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")``r fa("file-lines", fill="#e04d38")`
-`r fa("file-lines", fill="#EBD480")``r fa("file-lines", fill="#EBD480")``r fa("file-lines", fill="#EBD480")`
-`r fa("file-lines", fill="#7AAD7B")`
+[DIPF Open Science Codex](https://dx.doi.org/10.25657/02:29165) est. January 23rd 2024 
+:::
+:::
 
-"Code-specific issues include (a) a lack of shared analysis code or modeling code and (b) issues with package or software versions (often resolvable but sometimes only with considerable effort)."  
+::: notes
+- What is the reason for organizing the event series?
+- Last January, the DIPF adopted a code that serves as a guideline for Open Science.
+:::
+
+
+## The DIPF Open Science Codex
+
+![](www/pyramid.jpg){width=75%}
+[@Nosek.2019a]
+
+::: notes
+- and we don't just want to establish a policy 
+:::
+
+## The DIPF Open Science Codex
+
+![](www/pyramid1.jpg){width=75%}
+[@Nosek.2019a]
+
+::: notes
+and require our staff to adhere to particular standards
+:::
+
+## The DIPF Open Science Codex
+
+![](www/pyramid2.jpg){width=75%}
+[@Nosek.2019a]
+
+::: notes
+We have also assessed the **needs** of our staff concerning the policy and this series of events is intended to meet those needs.
+:::
+
+
+
+
+## Reproducibility: The challenge
+\
+\
+
+:::: columns
+::: {.column width="35%"}
+![](www/new_analyses1.jpg){width=100%}
+:::
+::: {.column width="64%"}
+#### Imagine
+
+- For a **conference**, you want to run new analyses on subgroups of your sample\
+- A reviewer of your journal article 
+  - suggests **further (exploratory) analyses** 
+  - asks you to share your data and code, so that s/he can **check your analyses**
+- For a **meta-analysis**, other researchers want to calculate the pre-post-correlation of your test
+:::
+::::
+
+::: notes
+... in all of these cases you or other people are re-running at least parts of your code
+:::
+
+## Reproducibility: The challenge
+\
+\
+
+:::: columns
+::: {.column width="35%"}
+![](www/new_analyses2.jpg){width=100%}
+:::
+::: {.column width="64%"}
+#### Imagine
+
+- For a **conference**, you want to run new analyses on subgroups of your sample\
+- A reviewer of your journal article 
+  - suggests **further (exploratory) analyses** 
+  - asks you to share your data and code, so that s/he can **check your analyses**
+- For a **meta-analysis**, other researchers want to calculate the pre-post-correlation of your test
+
+<span class="highlight">But when you/others re-run your code, R throughs error messages.</span>
+:::
+::::
+
+::: notes
+- But just because your code has run once does not mean that it will run again later
+- or that others will be able to run it.
+- And then you have to go on a tedious search for the reason why your code won't run.
+:::
+
+
+## Reproducibility: The challenge
+\
+\
+
+
+@Cruwell.etal.2023: All articles from one issue in Psychological Science  
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#009e73")`
+
+
   
-[@Hardwicke.etal.2021]
-Investigated all articles with open data badges from Psychological Science in 2014-2015:
-
- all target values in 9 out of the 25 articles (36%, CI [19,57]) were reproducible, with the remaining 16 articles (64%, CI [43,81]) containing at least one major numerical discrepancy. After requesting input from original authors, several issues were resolved through the provision of additional information and ultimately all target values in 15 (60%, CI [39,78]) articles were reproducible, with the remaining 10 (40%, CI [22,61]) articles containing at least one major numerical discrepancy. (p. 4)  
+@Hardwicke.etal.2021: All articles with open data badge from Psychological Science in 2014-2015  
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
    
 
-[@Obels.etal.2020] analyzed 62 registered reports. 36 shared both, code and data.  
-computationally reproduced (21 out of 36, or 58%) 
+@Obels.etal.2020: 36 registered reports that shared both, code and data
+
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")`
 
 
-## The challenge
+::: notes
+* There is some evidence that this is not just happening **occasionally**. Maybe even more than you think.
+* Crüwell were able to re-run the code of **1 of 14** journal articles producing the **same results** as in the paper
+* Hardwicke.etal.2021: **9 out of 25**
+* Obels: **21 out of 36**
 
-- Artner slides
-
-
-## Reasons
-
-- copy paste errors
-- ... (see slides Metascience)
-- Package conflicts
-- Non-standardized computational environment
+:::
 
 
-## Input-Output-Documents
-## renv
-## Containers: Holepunch
-https://doi.org/10.1177/2378023119849803
-https://doi.org/10.15626/MP.2018.892
+## Reproducibility: The challenge
+\
+\
+
+@Cruwell.etal.2023: All articles from one issue in Psychological Science  
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#009e73")`
+
+
+  
+@Hardwicke.etal.2021: All articles with open data badge from Psychological Science in 2014-2015  
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#f0e442")`
+`r fa("file-lines", fill="#f0e442")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+   
+
+@Obels.etal.2020: 36 registered reports that shared both, code and data
+
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")``r fa("file-lines", fill="#cc79a7")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")``r fa("file-lines", fill="#009e73")`
+`r fa("file-lines", fill="#009e73")`
+
+\
+\
+
+::: {.callout-note icon=false}
+### Computational reproducibility
+"obtaining consistent results using the **same input data; computational steps, methods, and code**; and conditions of analysis" [@NAS.2018, p. 46]
+:::
+\
+
+"In principle, all reported evidence should be reproducible. If someone applies the same analysis to the same data, the same result should occur." [@Nosek.etal.2022, p. 721]
+
+
+::: notes
+- so this is the challenge for computational reproducibility of your R code
+- reproducibility means that you run the **same code** with the **same data** and obtain the **same results**
+- in principle you'd think: Well this should work for 100%, right?
+:::
+
+
+## Reproducibility: The challenge
+
+\
+\
+
+<span style="float: left !important; font-size: 1.43em">**@Artner.etal.2021**</span>: **232** scientific claims from **46** journal articles
+
+
+```{r}
+#| fig-width: 15
+#| fig-height: 9
+#| fig-align: center
+#| fig-dpi: 300
+
+artner <- data.frame(what = factor(c("scientific claims",
+                                     "reproducible",
+                                     "reproducible (strict)",
+                                     "reproducible (strict) \n& procedure of paper"),
+                                   levels = c("scientific claims",
+                                     "reproducible",
+                                     "reproducible (strict)",
+                                     "reproducible (strict) \n& procedure of paper")),
+                     count = c(232, 163, 137, 119),
+                     percent = c("100 %", "70 %", "59 %", "51 %"))
+
+ggplot(artner, aes(x=what, y=count)) +
+  stat_summary(fun=mean, colour="#ff4c4c", geom="line", aes(group = 1), size = 3) +
+  geom_point(size = 6) +
+  annotate("text", x = artner$what, y = artner$count - 15, label = artner$percent, size = 6) +
+  scale_y_continuous(limits = c(0,235)) +
+  xlab("") +
+  theme_light() +
+  theme(text = element_text(size = 24))
+```
+
+::: {.notes}
+* We've just seen that that is not necessarily the case
+* When Artner and colleagues tried to reproduce 232 statistical claims
+* and aimed to improve the share of reproducible results from the initial 52%
+:::
+
+
+## Reproducibility: The challenge
+
+\
+\
+
+<span style="float: left !important; font-size: 1.43em">**@Artner.etal.2021**</span>: **232** scientific claims from **46** journal articles
+![](www/artner.jpg){width=70% .img-border}
+
+::: {.notes}
+* They found it to be tedious and time-consuming
+* I hope that with this workshop we can **save ourselves** from this tedious and time-consuming extra work
+:::
+
+
+## Reasons for lack of reproducibility
+\
+\
+\
+\
+
+`r fa("left-right", fill="#cc79a7", width="30px")` Renaming files\
+`r fa("lock", fill="#cc79a7", width="30px")` Hard-coding file paths\
+\
+
+`r fa("copy", fill="#cc79a7", width="30px")` copy-paste errors\
+`r fa("calculator", fill="#cc79a7", width="30px")` wrong rounding\
+\
+
+`r fa("box", fill="#cc79a7", width="30px")` Old package versions\
+`r fa("computer", fill="#cc79a7", width="30px")` Non-standardized computational environment (e.g., Older software versions)
+
+[@Batinovic.Carlsson.2023]
+
+::: notes
+* There are many reasons why results are not reproducible
+* I would just like to direct your attention to the latter two, with which we are particularly concerned today
+* And that is having the right package versions and working in the right environment
+* Sometimes - not all the time - if your code was written with older package versions or with an older R version, it will through you error messages if you'd try to run it now
+:::
+
+
+
+
+
+
+
+## Package management: {renv}
+\
+
+* Ensures that everyone involved uses the same **package versions**
+* Creates project library **within the project** (as opposed to global library)
+  
+\
+
+:::: columns
+::: {.column width="15%"}
+![](www/renv_folder.jpg){width=100%}
+:::
+
+::: {.column width="65%"}
+**Very simple usage via**
+
+`r fa("user", fill="#fde725", stroke_width="3px")` starts using renv in the current project with `renv::init()`\
+`r fa("user", fill="#fde725", stroke="3px")` installs the needed packages as usual\
+`r fa("user", fill="#fde725")` document which packages are needed with `renv::snapshot()`\
+`r fa("user", fill="#365c8d")` creates this environment in their project with `renv::restore()`
+
+\
+\
+\
+
+*Alternative: `{groundhog}` package*
+:::
+::::
+
+::: notes
+* so one option is to use renv with your projects
+* it ensures that everyone involved uses the same package versions
+* by establishing a project specific library, which is saved in the renv folder
+* so when you use renv by running rnv::init(), installing the packages and documenting the packages
+* soemone else can create that same package environment with renv::restore
+:::
+
+
+
+
+## Package management: {renv}
+
+```{r}
+table1 <- data.frame(Option = c("package management"),
+                     `package versions` = c("✅"),
+                     `comp.environment` = c("❌"),
+                     editable = c("if..."))
+
+names(table1) <- c("", "package versions", "comp. environment", "editable execution")
+
+
+table1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
+
+::: notes
+* so with renv your are able to solve the problem with the package versions
+* but if someone else has another R version there might sill be Problems in running this code
+:::
+
+## Containers: {holepunch}
+\
+\
+
+* **Standardizes** computational environment (e.g., R Version)  
+* Used in **software engineering**, not very common in academia [@Liu.Salganik.2019]
+* Tested for psychological research [@Clyburne-Sherin.etal.2019]
+
+\
+
+**Like a lightweight virtual machine**  
+A small self-sufficient *environment* for a software application, so it runs consistently *regardless of where it's deployed*
+
+::: notes
+* Containers are one possible solution to this, because they standarize the computational environment
+* and that involves the R version
+* To me it is not so easy to grasp or explain what containers do, but you can think of them as leightweight virtual machines
+:::
+
+
+## Containers: {holepunch}
+\
+\
+\
+\
+
+:::: columns
+::: {.column width="49%"}
+* R package **holepunch containerizes** your R project for you\
+* AND provides a link for others to access it via their **browser**\
+* With only a **few lines** of code
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: false
+#| echo: true
+
+library(holepunch)
+write_compendium_description(package = "Your compendium name", 
+                             description = "Your compendium description")
+write_dockerfile(maintainer = "your_name") 
+
+generate_badge()
+
+build_binder()
+```
+:::
+::::
+
+
+::: notes
+* There is an R package that enables you to easily containerize your project with just a couple lines of code
+* and it additionally gives you a link, so that others can open your R-project in their browser
+* so they don't even need an installation of container software
+:::
+
+
+## Containers: {holepunch}
+\
+
+:::: columns
+::: {.column width="37%"}
+![](www/holepunch_gh.jpg){width=100%}
+:::
+
+::: {.column width="55%"}
+![](www/holepunch_browser.jpg){width=100%}  
+  
+See [this example on github](https://github.com/j-5chneider/subcommunitiesOS).
+:::
+::::
+
+::: notes
+* you can put this link on your github page of the project, so everyone can open and run your code
+:::
+
+
+
+## Containers: {holepunch}
+
+```{r}
+table1 <- data.frame(Option = c("package management", "contrainerization"),
+                     `package versions` = c("✅", "❌"),
+                     `comp.environment` = c("❌", "✅"),
+                     editable = c("if...", "if..."))
+
+names(table1) <- c("", "package versions", "comp. environment", "editable execution")
+
+
+table1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
+
+::: notes
+* now this solves the challenge of having standardized computational environments
+* but it doesn't deal with package version problems
+* only by the powers combined of the right package versions and computational environment, we will achieve reproducibility
+:::
+
+## Nix
+
+```{r}
+table1 <- data.frame(Option = c("package management", "contrainerization", "Nix (my hope ->)"),
+                     `package versions` = c("✅", "❌", "✅"),
+                     `comp.environment` = c("❌", "✅", "✅"),
+                     editable = c("if...", "if...", "✅"))
+
+names(table1) <- c("", "package versions", "comp. environment", "editable execution")
+
+
+table1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
+
+::: notes
+* my hope is that with Nix we will get both and therefore make it easier to create reproducible projects
+* and to make it easier for R to use Nix, Bruno comes into play.
+* He has created an R package to help us with this.
+:::
+
 
 ## Recording
 
+Starting now.
 
-# Vielen Dank
+# Thank you
 
 ![](www/dipf-logo.png){width="20%"}\
 \
@@ -187,7 +607,61 @@ https://doi.org/10.15626/MP.2018.892
 
 ## Credit
 
-Title page <a href="https://unsplash.com/de/@thomasw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Thomas William</a> on <a href="https://unsplash.com/de/fotos/person-die-eine-videokamera-halt-4qGbMEZb56c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>  
+Title page #
   
 Icons by Font Awesome CC BY 4.0
 
+## Input-Output-Documents
+
+\
+
+::: columns
+::: {.column width="32%"}
+![](www/quarto1.jpg){width=100%}
+:::
+
+::: {.column width="32%"}
+![](www/quarto2.jpg){width=100%}
+:::
+
+::: {.column width="35%"}
+Built from **Quarto** or **RMarkdown**  
+\
+\
+
+**Integrates**
+
+* formatted text
+* media (pictureS/videos/...)
+* R code
+
+`r fa("long-arrow-right")` executes R code  
+`r fa("long-arrow-right")` displays *input* alongside *output*
+:::
+:::
+
+
+Example [rendered to HTML](https://raw.githack.com/j-5chneider/subcommunitiesOS/main/analysis/2_analyses-reproducible.html) or [other outputs](https://github.com/j-5chneider/subcommunitiesOS/tree/main/analysis).
+
+
+::: notes
+:::
+
+
+
+## Input-Output-Documents
+
+```{r}
+table1 <- data.frame(Option = c("Input-Ouput-Documents"),
+                     `package versions` = c("✅"),
+                     `comp.environment` = c("✅"),
+                     Transparency = c("✅"),
+                     editable = c("❌"))
+
+names(table1) <- c("", "package versions", "comp. environment", "transparent", "editable execution")
+
+
+table1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
